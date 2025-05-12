@@ -14,14 +14,15 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import com.cardiovascularmodel.livingheart.Navigation.AppScreens
 import com.cardiovascularmodel.livingheart.R
 
 @Composable
-fun LoginScreen(viewModel: LoginViewModel = viewModel()) {
+fun LoginScreen(viewModel: LoginViewModel = viewModel(), navController: NavHostController) {
     val username = viewModel.username
     val password = viewModel.password
 
@@ -87,7 +88,7 @@ fun LoginScreen(viewModel: LoginViewModel = viewModel()) {
         Spacer(modifier = Modifier.height(16.dp))
 
         TextButton(
-            onClick = {},
+            onClick = {navController.navigate(AppScreens.RegisterScreen.route)},
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("¿No tienes cuenta? Regístrate", color = Color.White, fontSize = 16.sp, fontFamily = FontFamily.SansSerif)
@@ -127,8 +128,3 @@ fun LoginScreen(viewModel: LoginViewModel = viewModel()) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun LoginScreenPreview() {
-    LoginScreen()
-}

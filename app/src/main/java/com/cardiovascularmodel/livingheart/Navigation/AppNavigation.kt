@@ -19,10 +19,10 @@ fun AppNavigation(){
             SplashScreen(navController)
         }
         composable(AppScreens.Login.route){
-            LoginScreen()
+            LoginScreen(navController = navController)
         }
         composable (AppScreens.RegisterScreen.route){
-            RegisterScreen()
+            RegisterScreen(navController = navController)
         }
     }
 }

@@ -18,10 +18,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.cardiovascularmodel.livingheart.Navigation.AppScreens
 import com.cardiovascularmodel.livingheart.R
+import androidx.navigation.NavHostController
 
 @Composable
-fun RegisterScreen(viewModel: RegisterViewModel = viewModel()) {
+fun RegisterScreen(viewModel: RegisterViewModel = viewModel(),  navController: NavHostController) {
     val username = viewModel.username.value
     val password = viewModel.password.value
 
@@ -88,8 +90,13 @@ fun RegisterScreen(viewModel: RegisterViewModel = viewModel()) {
             Text("Registrarse", color = Color.Black, fontSize = 16.sp, fontFamily = FontFamily.SansSerif)
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
-
+        Spacer(modifier = Modifier.height(12.dp))
+        TextButton(
+            onClick = {navController.navigate(AppScreens.Login.route)},
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("¿Ya tienen una cuenta? Inicia Sesión", color = Color.White, fontSize = 16.sp, fontFamily = FontFamily.SansSerif)
+        }
         Text(
             text = "OR",
             color = Color.White,
@@ -121,10 +128,4 @@ fun RegisterScreen(viewModel: RegisterViewModel = viewModel()) {
             Text("Continuar con Google", fontSize = 16.sp, fontFamily = FontFamily.SansSerif)
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun RegisterScreenPreview() {
-    RegisterScreen()
 }
