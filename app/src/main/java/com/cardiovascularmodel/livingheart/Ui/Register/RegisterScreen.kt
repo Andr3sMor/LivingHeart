@@ -1,4 +1,4 @@
-package com.cardiovascularmodel.livingheart.Ui
+package com.cardiovascularmodel.livingheart.Ui.Register
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -17,12 +17,13 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.cardiovascularmodel.livingheart.R
 
 @Composable
-fun LoginScreen() {
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+fun RegisterScreen(viewModel: RegisterViewModel = viewModel()) {
+    val username = viewModel.username.value
+    val password = viewModel.password.value
 
     Column(
         modifier = Modifier
@@ -33,18 +34,19 @@ fun LoginScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Inicio Sesión",
+            text = "Registrarse",
             color = Color.White,
-            fontSize = 38.sp,
+            fontSize = 32.sp,
             modifier = Modifier.padding(bottom = 32.dp),
             fontFamily = FontFamily.SansSerif
         )
 
-        // Campo de Usuario
         OutlinedTextField(
             value = username,
-            onValueChange = { username = it },
-            label = { Text("Usuario", color = Color.White, fontSize = 18.sp, fontFamily = FontFamily.SansSerif) },
+            onValueChange = { viewModel.onUsernameChanged(it) },
+            label = {
+                Text("Usuario", color = Color.White, fontSize = 16.sp, fontFamily = FontFamily.SansSerif)
+            },
             modifier = Modifier.fillMaxWidth(),
             textStyle = TextStyle(color = Color.White),
             colors = OutlinedTextFieldDefaults.colors(
@@ -56,11 +58,12 @@ fun LoginScreen() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Campo de Contraseña
         OutlinedTextField(
             value = password,
-            onValueChange = { password = it },
-            label = { Text("Contraseña", color = Color.White, fontSize = 18.sp, fontFamily = FontFamily.SansSerif) },
+            onValueChange = { viewModel.onPasswordChanged(it) },
+            label = {
+                Text("Contraseña", color = Color.White, fontSize = 16.sp, fontFamily = FontFamily.SansSerif)
+            },
             modifier = Modifier.fillMaxWidth(),
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -74,38 +77,30 @@ fun LoginScreen() {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Botón de Iniciar
         Button(
-            onClick = { /* Acción */ },
+            onClick = { },
             modifier = Modifier
-                .width(115.dp)
-                .height(48.dp),
-            shape = RoundedCornerShape(24.dp),
+                .wrapContentWidth()
+                .height(45.dp),
+            shape = RoundedCornerShape(20.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color.White)
         ) {
-            Text("Iniciar", color = Color.Black, fontSize = 18.sp, fontFamily = FontFamily.SansSerif)
+            Text("Registrarse", color = Color.Black, fontSize = 16.sp, fontFamily = FontFamily.SansSerif)
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
-        TextButton(
-            onClick = { /* Acción */ },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("¿No tienes cuenta? Regístrate", color = Color.White, fontSize = 16.sp, fontFamily = FontFamily.SansSerif)
-        }
-
-        Spacer(modifier = Modifier.height(12.dp))
         Text(
             text = "OR",
             color = Color.White,
-            fontSize = 20.sp,
-            modifier = Modifier.padding(bottom = 32.dp),
+            fontSize = 18.sp,
             fontFamily = FontFamily.SansSerif
         )
-        // Botón de Google
+
+        Spacer(modifier = Modifier.height(20.dp))
+
         OutlinedButton(
-            onClick = { /* Acción */ },
+            onClick = {},
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
@@ -119,18 +114,17 @@ fun LoginScreen() {
                 painter = painterResource(id = R.drawable.icgoogle),
                 contentDescription = "Google",
                 modifier = Modifier
-                    .size(35.dp)
+                    .size(30.dp)
                     .padding(end = 8.dp),
                 tint = Color.Unspecified
             )
-            Text("Continuar con Google", fontSize = 18.sp, fontFamily = FontFamily.SansSerif)
+            Text("Continuar con Google", fontSize = 16.sp, fontFamily = FontFamily.SansSerif)
         }
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
-fun LoginScreenPreview() {
-    LoginScreen()
+fun RegisterScreenPreview() {
+    RegisterScreen()
 }

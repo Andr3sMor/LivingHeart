@@ -4,8 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
-import com.cardiovascularmodel.livingheart.Ui.LoginScreen
-import com.cardiovascularmodel.livingheart.Ui.SplashScreen
+import com.cardiovascularmodel.livingheart.Ui.Login.LoginScreen
+import com.cardiovascularmodel.livingheart.Ui.Register.RegisterScreen
+import com.cardiovascularmodel.livingheart.Ui.SplashScreen.SplashScreen
 
 @Composable
 fun AppNavigation(){
@@ -19,6 +20,9 @@ fun AppNavigation(){
         }
         composable(AppScreens.Login.route){
             LoginScreen()
+        }
+        composable (AppScreens.RegisterScreen.route){
+            RegisterScreen()
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.cardiovascularmodel.livingheart.Ui
+package com.cardiovascularmodel.livingheart.Ui.SplashScreen
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
