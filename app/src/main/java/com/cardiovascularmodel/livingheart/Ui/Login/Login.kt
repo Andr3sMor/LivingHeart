@@ -75,7 +75,7 @@ fun LoginScreen(viewModel: LoginViewModel = viewModel(), navController: NavHostC
         Spacer(modifier = Modifier.height(24.dp))
 
         Button(
-            onClick = { },
+            onClick = {navController.navigate(AppScreens.DashboardScreen.route)},
             modifier = Modifier
                 .width(115.dp)
                 .height(48.dp),
