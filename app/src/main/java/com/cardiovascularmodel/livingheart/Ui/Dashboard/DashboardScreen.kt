@@ -74,7 +74,7 @@ fun DashboardContent(viewModel: DashboardViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF0B1E2D))
-            .padding(38.dp)
+            .padding(36.dp)
     ) {
 
         Text(
@@ -155,12 +155,12 @@ fun LegendItem(title: String, value: String, color: Color) {
             Text(
                 text = title,
                 color = Color.White,
-                fontSize = 16.sp
+                fontSize = 14.sp
             )
             Text(
                 text = value,
                 color = Color.LightGray,
-                fontSize = 13.sp
+                fontSize = 11.sp
             )
         }
     }

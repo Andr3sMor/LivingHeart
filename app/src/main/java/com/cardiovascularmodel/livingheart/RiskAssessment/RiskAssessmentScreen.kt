@@ -64,7 +64,13 @@ fun RiskAssessmentContent(viewModel: RiskAssessmentViewModel) {
             .padding(34.dp)
     ) {
         Text(
-            text = "Evaluacion de\nRiesgos",
+            text = "Evaluacion de",
+            color = Color.White,
+            fontSize = 45.sp,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = "Riesgos",
             color = Color.White,
             fontSize = 45.sp,
             fontWeight = FontWeight.Bold
