@@ -44,7 +44,9 @@ fun Drawer(
     val scope = rememberCoroutineScope()
     val drawer_items = listOf(
         Item_drawer1,
-        Item_drawer2
+        Item_drawer2,
+        Item_drawer3,
+        Item_drawer4
     )
     ModalNavigationDrawer(
         drawerState = drawerState,

@@ -48,7 +48,7 @@ fun DashboardScreen(viewModel: DashboardViewModel = viewModel(), navController: 
         drawerState = drawerState
     ) {
         Scaffold (
-            topBar = { TopBar(drawerState) },
+            topBar = { TopBar(drawerState, navController) },
             containerColor = Color(0xFF0B1E2D)
         ){padding->
             Box(modifier = Modifier.padding(padding)){

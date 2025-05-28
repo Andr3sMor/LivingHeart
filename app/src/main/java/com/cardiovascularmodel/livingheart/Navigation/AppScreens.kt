@@ -6,6 +6,9 @@ sealed class AppScreens(val route: String){
     object RegisterScreen: AppScreens("register_screen")
     object DashboardScreen: AppScreens("dashboard_screen")
     object RiskAssessmentScreen: AppScreens("Risk_Screen")
+    object MedicalHistoryScreen: AppScreens("Medical_Screen")
+    object SettingsScreen: AppScreens("settings_screen")
+
 
     /*Post Login-Register*/
     object GoogleFitScreen: AppScreens("google_fit_screen")

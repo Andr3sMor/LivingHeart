@@ -1,18 +1,24 @@
 package com.cardiovascularmodel.livingheart.Ui.PostRegister
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import com.google.android.gms.fitness.FitnessOptions
+import com.google.android.gms.fitness.data.DataType
 
 class GoogleFitViewModel : ViewModel() {
-    private var _isConnected by mutableStateOf(false)
 
-    val isConnected: Boolean get() = _isConnected
+    private val _isConnected = MutableStateFlow(false)
+    val isConnected: StateFlow<Boolean> get() = _isConnected
 
-    fun connectToGoogleFit() {
-        // Lógica real de conexión iría aquí
-        _isConnected = true
+    fun setConnected(connected: Boolean) {
+        _isConnected.value = connected
+    }
+
+    fun getFitnessOptions(): FitnessOptions {
+        return FitnessOptions.builder()
+            .addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
+            .addDataType(DataType.TYPE_HEART_RATE_BPM, FitnessOptions.ACCESS_READ)
+            .build()
     }
 }
-
