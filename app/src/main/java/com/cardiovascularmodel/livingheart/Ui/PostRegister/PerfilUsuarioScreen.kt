@@ -13,10 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+
+
 fun PerfilUsuarioScreen(
+    navController: NavHostController,
     appViewModel: PerfilUsuarioViewModel = viewModel(),
     onNavigateBack: () -> Unit, // Para volver si se accede desde un NavHost
     onAccountDeleted: () -> Unit // Para navegar fuera después de eliminar la cuenta

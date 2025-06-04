@@ -10,6 +10,7 @@ sealed class AppScreens(val route: String){
     object SettingsScreen: AppScreens("settings_screen")
 
 
+
     /*Post Login-Register*/
     object GoogleFitScreen: AppScreens("google_fit_screen")
     object PerfilUsuarioScreen: AppScreens("perfil_usuario_screen")

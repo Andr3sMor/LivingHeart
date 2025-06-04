@@ -1,6 +1,7 @@
 package com.cardiovascularmodel.livingheart.Navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -10,6 +11,7 @@ import com.cardiovascularmodel.livingheart.Ui.Dashboard.DashboardScreen
 import com.cardiovascularmodel.livingheart.Ui.Login.LoginScreen
 import com.cardiovascularmodel.livingheart.Ui.MedicalHistory.MedicalHistoryScreen
 import com.cardiovascularmodel.livingheart.Ui.PostRegister.GoogleFitScreen
+import com.cardiovascularmodel.livingheart.Ui.PostRegister.PerfilUsuarioScreen
 import com.cardiovascularmodel.livingheart.Ui.Register.RegisterScreen
 import com.cardiovascularmodel.livingheart.Ui.RiskAssessment.RiskAssessmentScreen
 import com.cardiovascularmodel.livingheart.Ui.Settings.SettingsScreen
@@ -31,6 +33,8 @@ fun AppNavigation(){
         composable (AppScreens.RegisterScreen.route){
             RegisterScreen(navController = navController)
         }
+
+
         composable (AppScreens.DashboardScreen.route){
             DashboardScreen(navController = navController)
         }
@@ -38,7 +42,7 @@ fun AppNavigation(){
             RiskAssessmentScreen(navController = navController)
         }
         composable (AppScreens.GoogleFitScreen.route){
-            GoogleFitScreen(navController = navController)
+            GoogleFitScreen()
         }
         composable(AppScreens.MedicalHistoryScreen.route){
             MedicalHistoryScreen(navController = navController)
@@ -46,8 +50,13 @@ fun AppNavigation(){
         composable (AppScreens.SettingsScreen.route){
             SettingsScreen(navController = navController)
         }
+
     }
 }
+
+
+
+
 
 @Composable
 fun currentRoute(navController: NavHostController): String? =

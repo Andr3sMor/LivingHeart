@@ -108,12 +108,7 @@ fun DashboardContent(viewModel: DashboardViewModel) {
             color = Color.White,
 
         )
-        Text(
-        text = "Hola, $userName",
-        fontSize = 25.sp,
-        fontWeight = FontWeight.Bold,
-        color = Color.White,
-        )
+
 
         Spacer(modifier = Modifier.height(30.dp))
 

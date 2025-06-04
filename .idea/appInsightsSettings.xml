@@ -9,10 +9,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.cardiovascularmodel.livingheart2" />
+                  <option name="mobileSdkAppId" value="1:925479049885:android:13f21e6dbbcdd08c5f1274" />
+                  <option name="projectId" value="diseno-creativo" />
+                  <option name="projectNumber" value="925479049885" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

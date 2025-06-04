@@ -1,19 +1,10 @@
 package com.cardiovascularmodel.livingheart.Ui.PostRegister
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,23 +15,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
 import com.cardiovascularmodel.livingheart.R
 import com.cardiovascularmodel.livingheart.Ui.SplashScreen.Splash
 
 @Composable
-fun GoogleFitScreen(viewModel: GoogleFitViewModel = viewModel(), navController: NavHostController) {
-    val isConnected = viewModel.isConnected
-
-    // Si ya está conectado, podrías navegar a la siguiente pantalla
-    if (isConnected) {
-        // Navega a otra pantalla o muestra una confirmación
-    }
+fun GoogleFitScreen(
+    viewModel: GoogleFitViewModel = viewModel(),
+) {
+    val isConnected by viewModel.isConnected.collectAsState()
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF0D1B2A)), // Fondo oscuro
+            .background(Color(0xFF0D1B2A)),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -60,14 +47,14 @@ fun GoogleFitScreen(viewModel: GoogleFitViewModel = viewModel(), navController: 
             )
             Spacer(modifier = Modifier.height(10.dp))
             Text(
-                text = "Porfavor conectate a Google Fit\npara continuar",
+                text = "Por favor conéctate a Google Fit\npara continuar",
                 color = Color.LightGray,
                 fontSize = 17.sp,
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(75.dp))
             Button(
-                onClick = { viewModel.connectToGoogleFit() },
+                onClick = {  },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                 shape = RoundedCornerShape(20.dp)
             ) {
@@ -75,7 +62,7 @@ fun GoogleFitScreen(viewModel: GoogleFitViewModel = viewModel(), navController: 
                     painter = painterResource(id = R.drawable.icgooglefit),
                     contentDescription = "Google Fit Icon",
                     modifier = Modifier.size(40.dp),
-                    tint = Color.Unspecified // usa el color original del ícono
+                    tint = Color.Unspecified
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
