@@ -51,12 +51,13 @@ dependencies {
     implementation ("androidx.work:work-runtime-ktx:2.9.0")
     implementation ("org.tensorflow:tensorflow-lite:2.13.0")
     implementation ("org.tensorflow:tensorflow-lite-support:0.4.3")
-
+    implementation ("androidx.work:work-runtime-ktx:2.9.0")
 
     // ─── Dependencias básicas de Android + Compose ─────────────────────────────────────
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+
 
     // BOM de Compose (para alinear versiones de Compose UI/Material3)
     implementation(platform(libs.androidx.compose.bom))
