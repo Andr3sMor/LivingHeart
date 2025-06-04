@@ -17,7 +17,22 @@ sealed class Items_drawer(
     )
     object Item_drawer2: Items_drawer(
         Icons.Outlined.CheckCircle,
+        "Usuario",
+        AppScreens.PerfilUsuarioScreen.route
+    )
+    object Item_drawer3: Items_drawer(
+        Icons.Outlined.CheckCircle,
         "Ev. Riesgos",
         AppScreens.RiskAssessmentScreen.route
+    )
+    object Item_drawer4: Items_drawer(
+        Icons.Outlined.CheckCircle,
+        "Historial Médico",
+        AppScreens.MedicalHistoryScreen.route
+    )
+    object Item_drawer5: Items_drawer(
+        Icons.Outlined.CheckCircle,
+        "Google Fit",
+        AppScreens.GoogleFitScreen.route
     )
 }

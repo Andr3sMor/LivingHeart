@@ -24,11 +24,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.cardiovascularmodel.livingheart.R
 import com.cardiovascularmodel.livingheart.Ui.SplashScreen.Splash
 
 @Composable
-fun GoogleFitScreen(viewModel: GoogleFitViewModel = viewModel()) {
+fun GoogleFitScreen(viewModel: GoogleFitViewModel = viewModel(), navController: NavHostController) {
     val isConnected = viewModel.isConnected
 
     // Si ya está conectado, podrías navegar a la siguiente pantalla
@@ -44,7 +45,14 @@ fun GoogleFitScreen(viewModel: GoogleFitViewModel = viewModel()) {
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = "Google Fit\nRequerido",
+                text = "Google Fit",
+                color = Color.White,
+                fontSize = 45.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
+            )
+            Text(
+                text = "Requerido",
                 color = Color.White,
                 fontSize = 45.sp,
                 fontWeight = FontWeight.Bold,
