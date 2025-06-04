@@ -9,7 +9,6 @@ import androidx.activity.viewModels
 import com.cardiovascularmodel.livingheart.Navigation.AppNavigation
 import com.cardiovascularmodel.livingheart.Ui.PostRegister.GoogleFitViewModel
 import com.cardiovascularmodel.livingheart.ui.theme.LivingHeartTheme
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 
 class MainActivity : ComponentActivity() {
 

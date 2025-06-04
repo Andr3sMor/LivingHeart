@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:925479049885:android:20b8ac8b89f5d5cc5f1274",
+        "mobilesdk_app_id": "1:925479049885:android:13f21e6dbbcdd08c5f1274",
         "android_client_info": {
-          "package_name": "com.cardiovascularmodel.livingheart"
+          "package_name": "com.cardiovascularmodel.livingheart2"
         }
       },
       "oauth_client": [
