@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "925479049885",
+    "project_id": "diseno-creativo",
+    "storage_bucket": "diseno-creativo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:925479049885:android:20b8ac8b89f5d5cc5f1274",
+        "android_client_info": {
+          "package_name": "com.cardiovascularmodel.livingheart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "925479049885-g8fpq6i0sl2hju0v2tsvrohrk3bbbo2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpaZUyNKrhNu3VvSHHyhtDL94-FBo9x5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "925479049885-g8fpq6i0sl2hju0v2tsvrohrk3bbbo2g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -16,7 +16,7 @@ import com.cardiovascularmodel.livingheart.Ui.Settings.SettingsScreen
 import com.cardiovascularmodel.livingheart.Ui.SplashScreen.SplashScreen
 
 @Composable
-fun AppNavigation(requestPermissionsLauncher: () -> Unit){
+fun AppNavigation(){
     val navController = rememberNavController()
     NavHost(
         navController= navController,
@@ -38,7 +38,7 @@ fun AppNavigation(requestPermissionsLauncher: () -> Unit){
             RiskAssessmentScreen(navController = navController)
         }
         composable (AppScreens.GoogleFitScreen.route){
-            GoogleFitScreen(requestPermissionsLauncher = requestPermissionsLauncher)
+            GoogleFitScreen()
         }
         composable(AppScreens.MedicalHistoryScreen.route){
             MedicalHistoryScreen(navController = navController)

@@ -19,7 +19,6 @@ import com.cardiovascularmodel.livingheart.R
 @Composable
 fun GoogleFitScreen(
     viewModel: GoogleFitViewModel = viewModel(),
-    requestPermissionsLauncher: () -> Unit
 ) {
     val isConnected by viewModel.isConnected.collectAsState()
 
@@ -53,7 +52,7 @@ fun GoogleFitScreen(
             )
             Spacer(modifier = Modifier.height(75.dp))
             Button(
-                onClick = { requestPermissionsLauncher() },
+                onClick = {  },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                 shape = RoundedCornerShape(20.dp)
             ) {

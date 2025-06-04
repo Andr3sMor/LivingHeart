@@ -22,34 +22,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val requestPermissionsLauncher = {
-            val fitnessOptions = googleFitViewModel.getFitnessOptions()
-            val account = GoogleSignIn.getAccountForExtension(this, fitnessOptions)
-
-            if (!GoogleSignIn.hasPermissions(account, fitnessOptions)) {
-                GoogleSignIn.requestPermissions(
-                    this,
-                    GOOGLE_FIT_PERMISSIONS_REQUEST_CODE,
-                    account,
-                    fitnessOptions
-                )
-            } else {
-                googleFitViewModel.setConnected(true)
-            }
-        }
-
         enableEdgeToEdge()
         setContent {
             LivingHeartTheme {
-                AppNavigation(requestPermissionsLauncher)
+                AppNavigation()
             }
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == GOOGLE_FIT_PERMISSIONS_REQUEST_CODE && resultCode == RESULT_OK) {
-            googleFitViewModel.setConnected(true)
         }
     }
 }
