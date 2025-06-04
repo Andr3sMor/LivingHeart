@@ -12,6 +12,7 @@ import com.cardiovascularmodel.livingheart.Ui.Login.LoginScreen
 import com.cardiovascularmodel.livingheart.Ui.MedicalHistory.MedicalHistoryScreen
 import com.cardiovascularmodel.livingheart.Ui.PostRegister.GoogleFitScreen
 import com.cardiovascularmodel.livingheart.Ui.PostRegister.GoogleFitViewModel
+import com.cardiovascularmodel.livingheart.Ui.PostRegister.PerfilUsuarioScreen
 
 
 
@@ -55,7 +56,9 @@ fun AppNavigation(viewModel: GoogleFitViewModel){
             SettingsScreen(navController = navController)
         }
 
-
+        composable(AppScreens.PerfilUsuarioScreen.route) {
+            PerfilUsuarioScreen(navController = navController /*, viewModel = ... si no usas hiltViewModel() o viewModel() dentro */)
+        }
     }
 }
 

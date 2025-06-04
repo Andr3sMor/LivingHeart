@@ -74,7 +74,7 @@ class DashboardViewModel : ViewModel() {
         simulationJob = viewModelScope.launch {
             while (isActive) { // Se ejecuta mientras el ViewModel esté activo
                 // Simula la variación del ritmo cardíaco (ej. entre 60 y 100)
-
+                heartRate = Random.nextInt(60, 100)
                 // Simula la variación de HRV (ej. entre 40 y 70)
                 hrv = Random.nextInt(40, 71)
 
