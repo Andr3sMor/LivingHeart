@@ -11,6 +11,8 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
+
+
 class DashboardViewModel : ViewModel() {
 
     var steps by mutableStateOf(6000)
@@ -31,7 +33,8 @@ class DashboardViewModel : ViewModel() {
     var workoutGoal by mutableStateOf(31)
         private set
 
-    var heartRate by mutableStateOf(72)
+    // Esta es la propiedad clave que actualizaremos con datos de Google Fit
+    var heartRate by mutableStateOf<Int?>(null) // Inicializa como null o un valor de carga
         private set
 
     var hrv by mutableStateOf(55)
@@ -71,8 +74,7 @@ class DashboardViewModel : ViewModel() {
         simulationJob = viewModelScope.launch {
             while (isActive) { // Se ejecuta mientras el ViewModel esté activo
                 // Simula la variación del ritmo cardíaco (ej. entre 60 y 100)
-                heartRate = Random.nextInt(60, 101)
-
+                heartRate = Random.nextInt(60, 100)
                 // Simula la variación de HRV (ej. entre 40 y 70)
                 hrv = Random.nextInt(40, 71)
 
@@ -87,6 +89,10 @@ class DashboardViewModel : ViewModel() {
     // Funciones para actualizar el estado (ejemplos)
     fun updateUserName(newName: String) {
         userName = newName
+    }
+    fun updateHeartRateFromGoogleFit(newHeartRate: Int?) {
+        heartRate = newHeartRate
+        // Podrías añadir lógica adicional aquí si es necesario cuando se actualiza el heartRate
     }
 
     fun updateUserEmail(newEmail: String) {

@@ -8,8 +8,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import com.cardiovascularmodel.livingheart.Navigation.AppNavigation
 import com.cardiovascularmodel.livingheart.Ui.PostRegister.GoogleFitViewModel
+// Make sure this import is correct based on where LivingHeartTheme is defined
+import com.cardiovascularmodel.livingheart.ui.theme.LivingHeartTheme // Likely import path
+// Also import other theme elements if needed, like Typography
+import com.cardiovascularmodel.livingheart.ui.theme.Typography // If you use custom typography
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+
+
 
 class MainActivity : ComponentActivity() {
 
@@ -21,7 +27,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             LivingHeartTheme {
-                AppNavigation(viewModel = googleFitViewModel)  // Pasa el viewModel a tu navegación
+                AppNavigation(googleFitViewModel)  // Pasa el viewModel a tu navegación
             }
         }
     }
