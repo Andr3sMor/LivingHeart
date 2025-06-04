@@ -8,13 +8,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import com.cardiovascularmodel.livingheart.Navigation.AppNavigation
 import com.cardiovascularmodel.livingheart.Ui.PostRegister.GoogleFitViewModel
-import com.cardiovascularmodel.livingheart.ui.theme.LivingHeartTheme
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 
 class MainActivity : ComponentActivity() {
-
-    companion object {
-        const val GOOGLE_FIT_PERMISSIONS_REQUEST_CODE = 1001
-    }
 
     private val googleFitViewModel: GoogleFitViewModel by viewModels()
 
@@ -24,8 +21,20 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             LivingHeartTheme {
-                AppNavigation()
+                AppNavigation(viewModel = googleFitViewModel)  // Pasa el viewModel a tu navegación
             }
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == GoogleFitViewModel.GOOGLE_FIT_PERMISSIONS_REQUEST_CODE) {
+            val connected = GoogleSignIn.hasPermissions(
+                GoogleSignIn.getAccountForExtension(this, googleFitViewModel.fitnessOptions),
+                googleFitViewModel.fitnessOptions
+            )
+            googleFitViewModel.setConnected(connected)
+        }
+    }
 }
+

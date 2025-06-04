@@ -11,6 +11,7 @@ import com.cardiovascularmodel.livingheart.Ui.Dashboard.DashboardScreen
 import com.cardiovascularmodel.livingheart.Ui.Login.LoginScreen
 import com.cardiovascularmodel.livingheart.Ui.MedicalHistory.MedicalHistoryScreen
 import com.cardiovascularmodel.livingheart.Ui.PostRegister.GoogleFitScreen
+import com.cardiovascularmodel.livingheart.Ui.PostRegister.GoogleFitViewModel
 import com.cardiovascularmodel.livingheart.Ui.PostRegister.PerfilUsuarioScreen
 import com.cardiovascularmodel.livingheart.Ui.Register.RegisterScreen
 import com.cardiovascularmodel.livingheart.Ui.RiskAssessment.RiskAssessmentScreen
@@ -18,7 +19,7 @@ import com.cardiovascularmodel.livingheart.Ui.Settings.SettingsScreen
 import com.cardiovascularmodel.livingheart.Ui.SplashScreen.SplashScreen
 
 @Composable
-fun AppNavigation(){
+fun AppNavigation(viewModel: GoogleFitViewModel){
     val navController = rememberNavController()
     NavHost(
         navController= navController,
@@ -42,7 +43,7 @@ fun AppNavigation(){
             RiskAssessmentScreen(navController = navController)
         }
         composable (AppScreens.GoogleFitScreen.route){
-            GoogleFitScreen()
+            GoogleFitScreen(viewModel = viewModel)
         }
         composable(AppScreens.MedicalHistoryScreen.route){
             MedicalHistoryScreen(navController = navController)
@@ -50,13 +51,11 @@ fun AppNavigation(){
         composable (AppScreens.SettingsScreen.route){
             SettingsScreen(navController = navController)
         }
-
+    composable (AppScreens.PerfilUsuarioScreen.route){
+        PerfilUsuarioScreen(navController = navController)
+    }
     }
 }
-
-
-
-
 
 @Composable
 fun currentRoute(navController: NavHostController): String? =

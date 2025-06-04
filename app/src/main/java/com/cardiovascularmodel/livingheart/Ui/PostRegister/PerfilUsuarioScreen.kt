@@ -1,188 +1,240 @@
-package com.cardiovascularmodel.livingheart.Ui.PostRegister // Asegúrate que el package sea el correcto
+package com.cardiovascularmodel.livingheart.Ui.PostRegister
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack // Para el botón de "Atrás" en la TopAppBar
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.rememberDrawerState
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.cardiovascularmodel.livingheart.Ui.Drawer.Drawer // Asegúrate que la importación sea correcta
+import com.cardiovascularmodel.livingheart.Ui.Drawer.TopBar // Asegúrate que la importación sea correcta
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-
-
 fun PerfilUsuarioScreen(
-    navController: NavHostController,
-    appViewModel: PerfilUsuarioViewModel = viewModel(),
-    onNavigateBack: () -> Unit, // Para volver si se accede desde un NavHost
-    onAccountDeleted: () -> Unit // Para navegar fuera después de eliminar la cuenta
+    navController: NavHostController, // Añadido NavHostController
+    viewModel: PerfilUsuarioViewModel = viewModel()
 ) {
-    // Cargar perfil del usuario y métricas al iniciar la pantalla
-    LaunchedEffect(Unit) {
-        appViewModel.loadUserProfile()
-        appViewModel.listenToRecentMetrics()
-    }
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Perfil de Usuario") },
-                navigationIcon = {
-                    // Si esta pantalla es parte de una navegación mayor,
-                    // podrías tener un botón de "Atrás" en lugar de un icono de menú.
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.Filled.ArrowBack, contentDescription = "Volver")
-                    }
-                }
-                // No actions needed here if "Cerrar Sesión" is in the main app's side menu
+    Drawer(navController = navController, drawerState = drawerState) {
+        Scaffold(
+            topBar = { TopBar(drawerState, navController) }, // Asumiendo que TopBar también usa navController
+            containerColor = Color(0xFF0A1E2C) // Color de fondo del Scaffold
+        ) { padding ->
+            Box(modifier = Modifier.padding(padding)) {
+                PerfilUsuarioContent(viewModel)
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PerfilUsuarioContent(viewModel: PerfilUsuarioViewModel) {
+    // El Surface ya no es necesario aquí si el Scaffold tiene el containerColor
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()) // Para permitir el scroll si el contenido es largo
+            .padding(24.dp),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = Modifier.height(30.dp)) // Ajustado para el TopBar
+        Text(
+            text = "Perfil De\nUsuario",
+            style = MaterialTheme.typography.headlineMedium.copy(
+                fontSize = 50.sp,
+                lineHeight = 50.sp,
+                fontFamily = FontFamily.SansSerif
+            ),
+            color = Color.White,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(bottom = 37.dp)
+        )
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            OutlinedTextField(
+                value = viewModel.nombre,
+                onValueChange = { viewModel.nombre = it },
+                label = { Text("Nombre") },
+                modifier = Modifier
+                    .weight(1f)
+                    .height(60.dp),
+                // textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 45.sp), // Parece un error tipográfico, 20sp es más consistente
+                textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 20.sp),
+                colors = textFieldColors()
+            )
+            OutlinedTextField(
+                value = viewModel.apellido,
+                onValueChange = { viewModel.apellido = it },
+                label = { Text("Apellido") },
+                modifier = Modifier
+                    .weight(1f)
+                    .height(60.dp),
+                textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 20.sp),
+                colors = textFieldColors()
             )
         }
-    ) { paddingValues ->
-        Box(
-            modifier = Modifier
-                .padding(paddingValues)
-                .fillMaxSize()
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Column(
+            OutlinedTextField(
+                value = viewModel.peso,
+                onValueChange = { viewModel.peso = it },
+                label = { Text("Peso") },
+                trailingIcon = { Text("Kg", color = Color.White) },
                 modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState()) // Scroll para todo el contenido de la pantalla
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                    .weight(1f)
+                    .height(60.dp),
+                textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 20.sp),
+                colors = textFieldColors()
+            )
+            OutlinedTextField(
+                value = viewModel.estatura,
+                onValueChange = { viewModel.estatura = it },
+                label = { Text("Estatura") },
+                trailingIcon = { Text("Cm", color = Color.White) },
+                modifier = Modifier
+                    .weight(1f)
+                    .height(60.dp),
+                textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 20.sp),
+                colors = textFieldColors()
+            )
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        OutlinedTextField(
+            value = viewModel.edad,
+            onValueChange = { viewModel.edad = it },
+            label = { Text("Edad") },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(60.dp),
+            textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 20.sp),
+            colors = textFieldColors()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        ExposedDropdownMenuBox(
+            expanded = viewModel.dropdownExpanded,
+            onExpandedChange = { viewModel.dropdownExpanded = !viewModel.dropdownExpanded }
+        ) {
+            OutlinedTextField(
+                value = viewModel.actividadFisica,
+                onValueChange = {},
+                readOnly = true,
+                label = { Text("Actividad Física") },
+                trailingIcon = {
+                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = viewModel.dropdownExpanded)
+                },
+                modifier = Modifier
+                    .menuAnchor() // menuAnchor se aplica al TextField dentro de ExposedDropdownMenuBox
+                    .fillMaxWidth()
+                    .height(60.dp),
+                textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 20.sp),
+                colors = textFieldColors()
+            )
+
+            ExposedDropdownMenu(
+                expanded = viewModel.dropdownExpanded,
+                onDismissRequest = { viewModel.dropdownExpanded = false }
             ) {
-                // --- Sección de Datos Personales ---
-                Text("Datos Personales", style = MaterialTheme.typography.headlineSmall)
-
-                OutlinedTextField(
-                    value = appViewModel.nombre,
-                    onValueChange = { appViewModel.nombre = it },
-                    label = { Text("Nombre") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-
-                OutlinedTextField(
-                    value = appViewModel.email,
-                    onValueChange = { appViewModel.email = it },
-                    label = { Text("Email") },
-                    modifier = Modifier.fillMaxWidth(),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
-                )
-
-                // Aquí podrías añadir más campos del perfil si es necesario (apellido, peso, etc.)
-                // Ejemplo:
-                // OutlinedTextField(
-                //     value = appViewModel.apellido,
-                //     onValueChange = { appViewModel.apellido = it },
-                //     label = { Text("Apellido") },
-                //     modifier = Modifier.fillMaxWidth()
-                // )
-
-                Spacer(modifier = Modifier.height(16.dp))
-                Text("Configuración", style = MaterialTheme.typography.titleMedium)
-
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Habilitar notificaciones")
-                    Spacer(Modifier.weight(1f))
-                    Checkbox(
-                        checked = appViewModel.notificationsEnabled,
-                        onCheckedChange = { appViewModel.notificationsEnabled = it }
+                viewModel.listaActividades.forEach { opcion ->
+                    DropdownMenuItem(
+                        text = { Text(opcion) },
+                        onClick = {
+                            viewModel.actividadFisica = opcion
+                            viewModel.dropdownExpanded = false
+                        }
                     )
                 }
-
-                Spacer(modifier = Modifier.height(24.dp)) // Más espacio antes de los botones de acción
-
-                Button(
-                    onClick = { appViewModel.saveUserProfile() /* TODO: Añadir feedback al usuario */ },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Guardar Cambios")
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Button(
-                    onClick = { appViewModel.showDeleteConfirmationDialog = true },
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Eliminar Cuenta")
-                }
-
-                Spacer(modifier = Modifier.height(24.dp)) // Espacio antes del widget de métricas
-
-                // --- Widget de Métricas Recientes ---
-                RecentMetricsWidget(
-                    lastBpm = appViewModel.lastBpm,
-                    trainingZone = appViewModel.trainingZone
-                )
-
-                Spacer(modifier = Modifier.height(16.dp)) // Espacio al final del scroll
-            }
-
-            // --- Diálogo de Confirmación para Eliminar Cuenta ---
-            if (appViewModel.showDeleteConfirmationDialog) {
-                DeleteConfirmationDialog(
-                    onConfirm = {
-                        appViewModel.deleteUserAccount(onAccountDeleted = onAccountDeleted)
-                    },
-                    onDismiss = { appViewModel.showDeleteConfirmationDialog = false }
-                )
             }
         }
-    }
-}
 
-// El widget de métricas puede seguir siendo un Composable separado dentro del mismo archivo
-// o simplemente parte de la Column principal si es sencillo.
-@Composable
-fun RecentMetricsWidget(lastBpm: Int?, trainingZone: String) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally // Centrar texto si quieres
+        Spacer(modifier = Modifier.height(32.dp))
+
+        Button(
+            onClick = { /* TODO: Implementar acción de continuar */ },
+            shape = RoundedCornerShape(50),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.White,
+                contentColor = Color.Black
+            )
         ) {
-            Text("Métricas Recientes", style = MaterialTheme.typography.titleMedium)
-            Spacer(Modifier.height(8.dp))
-            Text("Último BPM: ${lastBpm ?: "N/A"}")
-            Text("Zona de Entrenamiento: ${trainingZone.ifEmpty { "N/A" }}")
+            Text(
+                text = "Continuar",
+                fontSize = 17.sp
+            )
         }
+        Spacer(modifier = Modifier.height(24.dp)) // Espacio al final para el scroll
     }
 }
 
-// El diálogo de confirmación también puede estar aquí
 @Composable
-fun DeleteConfirmationDialog(
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit
-) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text("Confirmar Eliminación") },
-        text = { Text("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y todos tus datos serán borrados.") },
-        confirmButton = {
-            TextButton(onClick = onConfirm) {
-                Text("Eliminar")
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text("Cancelar")
-            }
-        }
-    )
+fun textFieldColors(): TextFieldColors = OutlinedTextFieldDefaults.colors(
+    focusedTextColor = Color.White,
+    unfocusedTextColor = Color.White,
+    focusedBorderColor = Color.White,
+    unfocusedBorderColor = Color.White,
+    cursorColor = Color.White,
+    focusedLabelColor = Color.White,
+    unfocusedLabelColor = Color.White,
+    // Podrías necesitar configurar también los colores del contenedor del TextField si el fondo por defecto no es transparente
+    // focusedContainerColor = Color.Transparent, // O el color que desees
+    // unfocusedContainerColor = Color.Transparent // O el color que desees
+)
+
+@Preview(showBackground = true, backgroundColor = 0xFF0A1E2C) // Color de fondo para la preview
+@Composable
+fun PreviewPerfilUsuarioScreen() {
+    // Para previsualizar con el Drawer y TopBar, necesitarías un NavController real.
+    // Para una preview más simple del contenido:
+    // PerfilUsuarioContent(viewModel = PerfilUsuarioViewModel())
+
+    // Si quieres previsualizar la pantalla completa (requiere que Drawer y TopBar no fallen con un NavController dummy)
+    val navController = rememberNavController()
+    PerfilUsuarioScreen(navController = navController, viewModel = PerfilUsuarioViewModel())
 }

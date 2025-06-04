@@ -25,6 +25,8 @@ sealed class Items_drawer(
         "Ev. Riesgos",
         AppScreens.RiskAssessmentScreen.route
     )
+
+
     object Item_drawer4: Items_drawer(
         Icons.Outlined.CheckCircle,
         "Historial Médico",

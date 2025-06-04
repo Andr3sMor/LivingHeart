@@ -43,11 +43,17 @@ android {
 }
 
 dependencies {
+    // ─── Dependencias GOOGLE FIT API ─────────────────────────────────────
+    implementation ("com.google.android.gms:play-services-fitness:21.1.0")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation ("com.google.android.gms:play-services-auth:20.7.0")
+
+    // ─── Dependencias básicas de Android + Compose ─────────────────────────────────────
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
-
+    implementation("com.google.firebase:firebase-database-ktx")
     // BOM de Compose (para alinear versiones de Compose UI/Material3)
     implementation(platform(libs.androidx.compose.bom))
 
@@ -56,25 +62,17 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
-
-    // Optional - For collecting Flow<Preferences> in a lifecycle-aware manner
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0") // Or the latest version
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-    // ... other dependencies
-
-        // Import the BoM for the Firebase platform
-        implementation(platform("com.google.firebase:firebase-bom:32.7.4")) // Check for the latest version
-
-        // Add the dependency for the Firebase Authentication library
-        // When using the BoM, you don't specify versions in Firebase library dependencies
-        implementation("com.google.firebase:firebase-auth-ktx")
-
-        // Add the dependency for the Cloud Firestore library
-        implementation("com.google.firebase:firebase-firestore-ktx")
 
     // Navegación en Compose
     implementation("androidx.navigation:navigation-compose:2.9.0")
+    implementation(platform("com.google.firebase:firebase-bom:32.7.4")) // Use the latest version
+
+    // Add the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation("com.google.firebase:firebase-auth-ktx")
+
+    // Add the dependency for the Cloud Firestore library
+    implementation("com.google.firebase:firebase-firestore-ktx")// Or the latest version
 
     // ─── Dependencias de Firebase ───────────────────────────────────────────────────────
     // A) Importamos el BOM de Firebase para alinear versiones de todas las librerías Firebase
