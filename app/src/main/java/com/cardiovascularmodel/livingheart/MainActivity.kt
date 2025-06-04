@@ -6,10 +6,16 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.cardiovascularmodel.livingheart.Navigation.AppNavigation
 import com.cardiovascularmodel.livingheart.Ui.PostRegister.GoogleFitViewModel
+import com.cardiovascularmodel.livingheart.Util.calculateDelayUntil23h59
+import com.cardiovascularmodel.livingheart.Worker.DailyWorker
 import com.cardiovascularmodel.livingheart.ui.theme.LivingHeartTheme
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import java.util.concurrent.TimeUnit
 
 class MainActivity : ComponentActivity() {
 
@@ -17,6 +23,16 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val dailyWorkRequest = PeriodicWorkRequestBuilder<DailyWorker>(1, TimeUnit.DAYS)
+            .setInitialDelay(calculateDelayUntil23h59(), TimeUnit.MILLISECONDS)
+            .build()
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            "dailyHealthUploader",
+            ExistingPeriodicWorkPolicy.UPDATE,
+            dailyWorkRequest
+        )
 
         enableEdgeToEdge()
         setContent {

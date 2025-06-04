@@ -47,6 +47,11 @@ dependencies {
     implementation ("com.google.android.gms:play-services-fitness:21.1.0")
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation ("com.google.android.gms:play-services-auth:20.7.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation ("androidx.work:work-runtime-ktx:2.9.0")
+    implementation ("org.tensorflow:tensorflow-lite:2.13.0")
+    implementation ("org.tensorflow:tensorflow-lite-support:0.4.3")
+
 
     // ─── Dependencias básicas de Android + Compose ─────────────────────────────────────
     implementation(libs.androidx.core.ktx)
@@ -72,6 +77,8 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     // C) Coroutines Play Services para poder usar `await()` en llamadas de Firebase
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.1")
+    implementation ("com.google.firebase:firebase-firestore-ktx:24.9.0")
+
 
     // ─── Otras dependencias de testing ─────────────────────────────────────────────────
     testImplementation(libs.junit)
@@ -84,5 +91,6 @@ dependencies {
 
     // Para previsualización de composables en Android Studio
     debugImplementation(libs.androidx.ui.tooling)
+
     debugImplementation(libs.androidx.ui.test.manifest)
 }
