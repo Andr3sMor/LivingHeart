@@ -38,7 +38,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun Drawer(
     navController: NavHostController,
-     drawerState: DrawerState,
+    drawerState: DrawerState,
     contenido: @Composable () -> Unit
 ){
     val scope = rememberCoroutineScope()
@@ -46,7 +46,8 @@ fun Drawer(
         Item_drawer1,
         Item_drawer2,
         Item_drawer3,
-        Item_drawer4
+        Item_drawer4,
+        Item_drawer5
     )
     ModalNavigationDrawer(
         drawerState = drawerState,

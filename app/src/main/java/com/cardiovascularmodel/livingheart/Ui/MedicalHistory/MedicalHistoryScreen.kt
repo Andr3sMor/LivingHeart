@@ -15,6 +15,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -110,7 +111,7 @@ fun MedicalRecordCard(record: MedicalRecord, onToggle: () -> Unit) {
 
             Spacer(modifier = Modifier.height(12.dp))
             Text("ECG", fontWeight = FontWeight.Bold)
-            ECGGraph(record.ecgData ?: listOf())
+            ECGGraph(ecgData = record.ecgData ?: emptyList(), isArrhythmia = record.status != "Normal")
 
             Spacer(modifier = Modifier.height(8.dp))
             Text("Recomendaciones", fontWeight = FontWeight.Bold, fontSize = 17.sp)
@@ -149,21 +150,39 @@ fun MetricRow(label: String, value: String, color: Color) {
 }
 
 @Composable
-fun ECGGraph(data: List<Float>) {
-    Canvas(modifier = Modifier
-        .fillMaxWidth()
-        .height(80.dp)
-        .padding(vertical = 8.dp)) {
-        if (data.isNotEmpty()) {
-            val path = Path().apply {
-                moveTo(0f, size.height / 2)
-                data.forEachIndexed { index, value ->
-                    val x = index * size.width / (data.size - 1)
-                    val y = size.height / 2 - value * 20
-                    lineTo(x, y)
+fun ECGGraph(ecgData: List<Float>, isArrhythmia: Boolean) {
+    val lineColor = if (isArrhythmia) Color(0xFFFF4C4C) else Color(0xFF2196F3) // azul para normales
+
+    Canvas(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(100.dp)
+            .padding(horizontal = 8.dp)
+    ) {
+        if (ecgData.isNotEmpty()) {
+            val spacing = size.width / (ecgData.size - 1).coerceAtLeast(1)
+            val maxVal = ecgData.maxOrNull() ?: 1f
+            val minVal = ecgData.minOrNull() ?: 0f
+            val range = maxVal - minVal
+
+            val points = ecgData.mapIndexed { index, value ->
+                val x = index * spacing
+                val y = if (range == 0f) {
+                    size.height / 2f
+                } else {
+                    size.height - ((value - minVal) / range * size.height)
                 }
+                Offset(x, y)
             }
-            drawPath(path, color = Color.Black, style = Stroke(width = 2.dp.toPx()))
+
+            for (i in 0 until points.size - 1) {
+                drawLine(
+                    color = lineColor,
+                    start = points[i],
+                    end = points[i + 1],
+                    strokeWidth = 2f
+                )
+            }
         }
     }
 }
