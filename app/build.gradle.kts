@@ -43,6 +43,11 @@ android {
 }
 
 dependencies {
+    // ─── Dependencias GOOGLE FIT API ─────────────────────────────────────
+    implementation ("com.google.android.gms:play-services-fitness:21.1.0")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation ("com.google.android.gms:play-services-auth:20.7.0")
+
     // ─── Dependencias básicas de Android + Compose ─────────────────────────────────────
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

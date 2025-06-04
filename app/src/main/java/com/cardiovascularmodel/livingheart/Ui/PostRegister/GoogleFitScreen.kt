@@ -1,5 +1,6 @@
 package com.cardiovascularmodel.livingheart.Ui.PostRegister
 
+import android.app.Activity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -8,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -18,9 +20,11 @@ import com.cardiovascularmodel.livingheart.R
 
 @Composable
 fun GoogleFitScreen(
-    viewModel: GoogleFitViewModel = viewModel(),
+    viewModel: GoogleFitViewModel = viewModel()
 ) {
     val isConnected by viewModel.isConnected.collectAsState()
+    val context = LocalContext.current
+    val activity = context as? Activity
 
     Box(
         modifier = Modifier
@@ -51,8 +55,13 @@ fun GoogleFitScreen(
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(75.dp))
+
             Button(
-                onClick = {  },
+                onClick = {
+                    activity?.let {
+                        viewModel.requestPermissionsIfNeeded(it, GoogleFitViewModel.GOOGLE_FIT_PERMISSIONS_REQUEST_CODE)
+                    }
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                 shape = RoundedCornerShape(20.dp)
             ) {
@@ -70,6 +79,17 @@ fun GoogleFitScreen(
                     fontWeight = FontWeight.Medium
                 )
             }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            if (isConnected) {
+                Text(
+                    text = "✔ Conectado a Google Fit",
+                    color = Color.Green,
+                    fontSize = 18.sp
+                )
+            }
         }
     }
 }
+
